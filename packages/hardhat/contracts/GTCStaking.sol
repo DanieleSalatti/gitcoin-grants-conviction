@@ -1,7 +1,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
-import "./GTC.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 //*********************************************************************//
 // --------------------------- custom errors ------------------------- //
@@ -22,10 +22,10 @@ contract GTCStaking {
         uint48 grantId
     );
 
-    event TokensReleased(address voter, uint152 amount);
+    event TokensReleased(uint56 voteId, address voter, uint152 amount);
 
     /// @notice gtc token contract instance.
-    GTC immutable gtcToken;
+    IERC20 immutable public gtcToken;
 
     /// @notice vote struct array.
     Vote[] public votes;
@@ -53,7 +53,7 @@ contract GTCStaking {
     @param tokenAddress gtc token address.
     */
     constructor(address tokenAddress) payable {
-        gtcToken = GTC(tokenAddress);
+        gtcToken = IERC20(tokenAddress);
     }
 
     /**
@@ -135,16 +135,17 @@ contract GTCStaking {
     */
     function releaseTokens(uint256[] memory _voteIds) external {
         for (uint256 i = 0; i < _voteIds.length; i++) {
-        if (votes[_voteIds[i]].voter != msg.sender) {
-            revert NOT_OWNER();
-        }
-        if (votes[_voteIds[i]].released != false) {
-            revert TOKENS_ALREADY_RELAEASED();
-        }
-        votes[_voteIds[i]].released = true;
-        gtcToken.transfer(msg.sender, votes[_voteIds[i]].amount);
+            if (votes[_voteIds[i]].voter != msg.sender) {
+                revert NOT_OWNER();
+            }
+            if (votes[_voteIds[i]].released) {
+                // UI can send the same vote multiple times, ignore it
+                continue;
+            }
+            votes[_voteIds[i]].released = true;
+            gtcToken.transfer(msg.sender, votes[_voteIds[i]].amount);
 
-        emit TokensReleased(msg.sender, votes[_voteIds[i]].amount);
+            emit TokensReleased(uint56(_voteIds[i]), msg.sender, votes[_voteIds[i]].amount);
         }
     }
 }
