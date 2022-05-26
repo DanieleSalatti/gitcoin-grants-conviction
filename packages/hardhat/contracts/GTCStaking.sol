@@ -17,12 +17,17 @@ error TOKENS_ALREADY_RELAEASED();
 contract GTCStaking {
     event VoteCasted(
         uint56 voteId,
-        address voter,
+        address indexed voter,
         uint152 amount,
         uint48 grantId
     );
 
-    event TokensReleased(uint56 voteId, address voter, uint152 amount);
+    event TokensReleased(
+        uint56 voteId,
+        address indexed voter,
+        uint152 amount,
+        uint48 grantId
+    );
 
     /// @notice gtc token contract instance.
     IERC20 immutable public gtcToken;
@@ -145,7 +150,8 @@ contract GTCStaking {
             votes[_voteIds[i]].released = true;
             gtcToken.transfer(msg.sender, votes[_voteIds[i]].amount);
 
-            emit TokensReleased(uint56(_voteIds[i]), msg.sender, votes[_voteIds[i]].amount);
+            emit TokensReleased(uint56(_voteIds[i]), msg.sender, votes[_voteIds[i]].amount, votes[_voteIds[i]]
+                .grantId);
         }
     }
 }
