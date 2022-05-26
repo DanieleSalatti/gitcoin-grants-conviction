@@ -1,4 +1,4 @@
-pragma solidity >=0.8.0 <0.9.0;
+	pragma solidity >=0.8.0 <0.9.0;
 //SPDX-License-Identifier: MIT
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -84,8 +84,12 @@ contract GTCStaking {
     {
         uint56[] memory voteIds = voterToVoteIds[_voter];
         Vote[] memory votesForAddress = new Vote[](voteIds.length);
-        for (uint256 i = 0; i < voteIds.length; i++) {
+        uint56 length = voteIds.length;
+        for (uint256 i = 0; i < length; ) {
             votesForAddress[i] = votes[voteIds[i]];
+            unchecked{
+                ++i;
+            }
         }
         return votesForAddress;
     }
@@ -124,8 +128,12 @@ contract GTCStaking {
     @param _batch array of struct to stake into multiple grants.
     */
     function vote(BatchVoteParam[] memory _batch) external {
-        for (uint256 i = 0; i < _batch.length; i++) {
+        uint256 length = _batch.length;
+        for (uint256 i = 0; i < length; ) {
             _vote(_batch[i].grantId, _batch[i].amount);
+            unchecked{
+                ++i;
+            }
         }
     }
 
@@ -134,7 +142,8 @@ contract GTCStaking {
     @param _voteIds array of vote ids in order to release tokens.
     */
     function releaseTokens(uint256[] memory _voteIds) external {
-        for (uint256 i = 0; i < _voteIds.length; i++) {
+        uint  length = _voteIds.length;
+        for (uint256 i = 0; i < length; ) {
             if (votes[_voteIds[i]].voter != msg.sender) {
                 revert NOT_OWNER();
             }
@@ -146,6 +155,9 @@ contract GTCStaking {
             gtcToken.transfer(msg.sender, votes[_voteIds[i]].amount);
 
             emit TokensReleased(uint56(_voteIds[i]), msg.sender, votes[_voteIds[i]].amount);
+            unchecked{
+                ++i;
+            }
         }
     }
 }
