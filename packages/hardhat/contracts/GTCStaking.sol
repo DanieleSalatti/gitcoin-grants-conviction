@@ -1,4 +1,4 @@
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity >=0.8.4 <0.9.0;
 //SPDX-License-Identifier: MIT
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -128,7 +128,7 @@ contract GTCStaking {
     @dev Stake and get Voting rights in barch.
     @param _batch array of struct to stake into multiple grants.
     */
-    function vote(BatchVoteParam[] memory _batch) external {
+    function vote(BatchVoteParam[] calldata _batch) external {
         for (uint256 i = 0; i < _batch.length; i++) {
             _vote(_batch[i].grantId, _batch[i].amount);
         }
@@ -138,7 +138,7 @@ contract GTCStaking {
     @dev Release tokens and give up votes.
     @param _voteIds array of vote ids in order to release tokens.
     */
-    function releaseTokens(uint256[] memory _voteIds) external {
+    function releaseTokens(uint256[] calldata _voteIds) external {
         for (uint256 i = 0; i < _voteIds.length; i++) {
             if (votes[_voteIds[i]].voter != msg.sender) {
                 revert NOT_OWNER();

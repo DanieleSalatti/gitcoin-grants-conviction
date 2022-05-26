@@ -4,7 +4,6 @@ pragma solidity ^0.8.10;
 import "../../contracts/GTCStaking.sol";
 import "../../contracts/GTC.sol";
 import "forge-std/Test.sol";
-import "./Hevm.sol";
 
 
 /// @author: DanieleSalatti
@@ -13,7 +12,6 @@ import "./Hevm.sol";
 /// @dev This is a test contract that uses the `Foundry` library.   It is a
 /// @dev To test, install Foundry and run forge test -vvvvv in the root directory.
 contract testing is Test {
-    Hevm evm = Hevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
 
     /// @dev Declaring the imported contracts as a variable
     GTCStaking gtcStaking;
@@ -22,7 +20,7 @@ contract testing is Test {
     /// @notice setUp function in Foundry is like a beforeEach function used in Hardhat!
     /// @dev This function is called before each test.
     function setUp() public {
-        evm.warp(50);
+        vm.warp(50);
         /// @notice: Instatntiating the imported contract
         gtcToken = new GTC();
         gtcStaking = new GTCStaking(address(gtcToken));
@@ -32,7 +30,7 @@ contract testing is Test {
     /// @dev Testing the currentTimestamp function.
     /// @dev To view indepth details of the test traces. Use forge test -vvvvv
     function testCurrentTimestamp() public {
-        evm.warp(100);
+        vm.warp(100);
         /// @notice: Console log to view the output
         console.log(gtcStaking.currentTimestamp());
 
@@ -43,7 +41,7 @@ contract testing is Test {
     /// @dev Testing the vote function.
     /// @dev To view indepth details of the test traces. Use forge test -vvvvv
     function testVote() public {
-        evm.startPrank(address(1));
+        vm.startPrank(address(1));
         gtcToken.approve(address(gtcStaking), 40 ether);
 
         // define the vote params
@@ -53,7 +51,7 @@ contract testing is Test {
         params[2] = GTCStaking.BatchVoteParam(3, 15 ether);
 
         gtcStaking.vote(params);
-        
+
         // assertion checks
         (
             bool released,
@@ -81,7 +79,7 @@ contract testing is Test {
     /// @dev Testing the releaseTokens function.
     /// @dev To view indepth details of the test traces. Use forge test -vvvvv
     function testReleaseTokens() public {
-        evm.startPrank(address(1));
+        vm.startPrank(address(1));
         gtcToken.approve(address(gtcStaking), 30 ether);
 
         // define the vote params
@@ -95,16 +93,16 @@ contract testing is Test {
         voteIds[0] = 0;
         voteIds[1] = 1;
 
-        evm.stopPrank();
+        vm.stopPrank();
 
         // using non-owner as msg.sender
-        evm.startPrank(address(2));
-        evm.expectRevert(abi.encodeWithSignature('NOT_OWNER()'));
+        vm.startPrank(address(2));
+        vm.expectRevert(abi.encodeWithSignature('NOT_OWNER()'));
         gtcStaking.releaseTokens(voteIds);
-        
+
         // updating msg.sender to correct address
-        evm.stopPrank();
-        evm.startPrank(address(1));
+        vm.stopPrank();
+        vm.startPrank(address(1));
 
         uint256 balance = gtcToken.balanceOf(address(1));
 
@@ -112,7 +110,7 @@ contract testing is Test {
 
         // balance checks
         assertEq(balance + 25 ether, gtcToken.balanceOf(address(1)));
-        
+
         // calling releaseTokens again does not revert
         gtcStaking.releaseTokens(voteIds);
     }
