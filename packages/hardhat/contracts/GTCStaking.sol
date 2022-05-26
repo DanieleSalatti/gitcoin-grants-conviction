@@ -52,7 +52,7 @@ contract GTCStaking {
     @dev Constructor.
     @param tokenAddress gtc token address.
     */
-    constructor(address tokenAddress) payable {
+    constructor(address tokenAddress) {
         gtcToken = IERC20(tokenAddress);
     }
 
