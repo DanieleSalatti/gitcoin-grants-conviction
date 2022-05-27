@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: GTCStaking
-    network: mainnet
+    network: rinkeby
     source:
       abi: GTCStaking
-      address: "0x9C2A7aC762ea6E33cfc380A5C802919b496c9e44"
-      startBlock: 14826457
+      address: "0x51250297F56779a86B15046bEf38f75Fa05266ba"
+      startBlock: 10745169
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -22,8 +22,8 @@ dataSources:
         - name: GTCStaking
           file: ./abis/rinkeby_GTCStaking.json
       eventHandlers:
-        - event: VoteCasted(uint56,address,uint152,uint48)
+        - event: VoteCasted(uint56,indexed address,uint152,uint48)
           handler: handleVoteCasted
-        - event: TokensReleased(uint56,address,uint152)
+        - event: TokensReleased(uint56,indexed address,uint152,uint48)
           handler: handleTokensReleased
       file: ./src/mapping.ts

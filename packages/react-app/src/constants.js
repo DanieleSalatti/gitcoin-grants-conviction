@@ -16,9 +16,9 @@ export const CONVICTION_MULTIPLIER = 0.001;
 
 export const GTC_STAKING_DEPLOYMENT_BLOCK = "10654544";
 
-// export const GRAPH_URI = "https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-rinkeby";
+export const GRAPH_URI_RINKEBY = "https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-rinkeby";
 // Temporary Mainnet query URL:
-export const GRAPH_URI = "https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.1";
+export const GRAPH_URI_MAINNET = "https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.1";
 
 export const NETWORKS = {
   localhost: {

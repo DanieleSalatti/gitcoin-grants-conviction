@@ -40,7 +40,6 @@ export function handleVoteCasted(event: VoteCasted): void {
 
   let vote = new Vote(event.params.voteId.toHexString());
 
-  vote.voteId = event.params.voteId;
   vote.voter = voter.id;
   vote.amount = event.params.amount;
   vote.grantId = event.params.grantId;
@@ -65,6 +64,7 @@ export function handleVoteCasted(event: VoteCasted): void {
     runningVoteRecord.latestTransactionHash = event.transaction.hash.toHex();
     runningVoteRecord.voter = voter.id;
     runningVoteRecord.votes = [vote.id];
+    runningVoteRecord.releases = [];
     runningVoteRecord.grantId = vote.grantId;
     runningVoteRecord.voteCount = BigInt.fromI32(1);
     runningVoteRecord.totalStaked = event.params.amount;
@@ -118,6 +118,7 @@ export function handleTokensReleased(event: TokensReleased): void {
   );
 
   release.voteId = event.params.voteId;
+  release.grantId = event.params.grantId;
   release.voter = voter.id;
   release.amount = event.params.amount;
   release.createdAt = event.block.timestamp;
@@ -144,8 +145,10 @@ export function handleTokensReleased(event: TokensReleased): void {
   runningVoteRecord.totalStaked = runningVoteRecord.totalStaked.minus(
     event.params.amount
   );
+  let releasesForRunningVoteRecord = runningVoteRecord.releases;
+  releasesForRunningVoteRecord.push(release.id);
+  runningVoteRecord.releases = releasesForRunningVoteRecord;
 
-  // voter.save();
   release.save();
   runningVoteRecord.save();
   grant.save();

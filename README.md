@@ -33,13 +33,15 @@ $ yarn workspace @scaffold-eth/hardhat deploy --network rinkeby
 $ hardhat deploy --export-all ../react-app/src/contracts/hardhat_contracts.json --network rinkeby
 Compiling 6 files with 0.8.4
 Compilation finished successfully
+chainId: 4
+Not on mainnet
 reusing "GTC" at 0x67775cBe9e73aa255Fc8e6A992Ed340e3b28D926
 Sending GTC...
 GTC address is 0x67775cBe9e73aa255Fc8e6A992Ed340e3b28D926
-deploying "GTCStaking" (tx: 0x39bee34bc21540a102995bf1d329a86112e462d6690486c07e931de780700956)...: deployed at 0x18317de792D372Dc39c5e0c99C70b08bbf27162A with 893568 gas
+deploying "GTCStaking" (tx: 0xc35f94a47a9a00d63f418328d471e8f396b02eb2b3d5e5311650d5812954a570)...: deployed at 0x51250297F56779a86B15046bEf38f75Fa05266ba with 880762 gas
 $ hardhat run scripts/publish.js
 ✅  Published contracts to the subgraph package.
-✨  Done in 72.75s.
+✨  Done in 61.68s.
 ```
 
 Local subgraph endpoint:

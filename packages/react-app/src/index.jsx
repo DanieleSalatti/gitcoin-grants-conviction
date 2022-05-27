@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
-import { GRAPH_URI } from "./constants";
+import { GRAPH_URI_RINKEBY, GRAPH_URI_MAINNET } from "./constants";
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -13,6 +13,10 @@ const themes = {
 };
 
 const prevTheme = window.localStorage.getItem("theme");
+
+console.log("ENV", process.env.NODE_ENV);
+
+const GRAPH_URI = process.env.NODE_ENV !== "production" ? GRAPH_URI_RINKEBY : GRAPH_URI_MAINNET;
 
 const client = new ApolloClient({
   uri: GRAPH_URI,

@@ -585,7 +585,7 @@
           ]
         },
         "GTCStaking": {
-          "address": "0x18317de792D372Dc39c5e0c99C70b08bbf27162A",
+          "address": "0x51250297F56779a86B15046bEf38f75Fa05266ba",
           "abi": [
             {
               "inputs": [
@@ -595,7 +595,7 @@
                   "type": "address"
                 }
               ],
-              "stateMutability": "payable",
+              "stateMutability": "nonpayable",
               "type": "constructor"
             },
             {
@@ -618,7 +618,7 @@
                   "type": "uint56"
                 },
                 {
-                  "indexed": false,
+                  "indexed": true,
                   "internalType": "address",
                   "name": "voter",
                   "type": "address"
@@ -628,6 +628,12 @@
                   "internalType": "uint152",
                   "name": "amount",
                   "type": "uint152"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "uint48",
+                  "name": "grantId",
+                  "type": "uint48"
                 }
               ],
               "name": "TokensReleased",
@@ -643,7 +649,7 @@
                   "type": "uint56"
                 },
                 {
-                  "indexed": false,
+                  "indexed": true,
                   "internalType": "address",
                   "name": "voter",
                   "type": "address"
@@ -737,6 +743,19 @@
                   "internalType": "struct GTCStaking.Vote[]",
                   "name": "",
                   "type": "tuple[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "gtcToken",
+              "outputs": [
+                {
+                  "internalType": "contract IERC20",
+                  "name": "",
+                  "type": "address"
                 }
               ],
               "stateMutability": "view",

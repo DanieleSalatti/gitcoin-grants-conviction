@@ -7,7 +7,7 @@
         "type": "address"
       }
     ],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
@@ -30,7 +30,7 @@
         "type": "uint56"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "voter",
         "type": "address"
@@ -40,6 +40,12 @@
         "internalType": "uint152",
         "name": "amount",
         "type": "uint152"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint48",
+        "name": "grantId",
+        "type": "uint48"
       }
     ],
     "name": "TokensReleased",
@@ -55,7 +61,7 @@
         "type": "uint56"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "voter",
         "type": "address"

@@ -29,7 +29,7 @@ export default function Confirm({ tx, readContracts, writeContracts, cart, setCa
       setCanStake(canStake);
     };
     checkCanStake();
-  }, [cartTotal, readContracts]);
+  }, [cartTotal]);
 
   const handleApprove = () => {
     console.log("tx address", readContracts.GTCStaking.address);

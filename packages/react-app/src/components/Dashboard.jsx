@@ -25,7 +25,14 @@ export default function Events({ address, readContracts, writeContracts, tx }) {
     voteCount
     votes {
       id
+      amount
+      createdAt
+    }
+    releases {
+      id
       voteId
+      amount
+      createdAt
     }
     totalStaked
     createdAt
@@ -48,17 +55,12 @@ export default function Events({ address, readContracts, writeContracts, tx }) {
   const handleUnstake = () => {
     console.log("tx address", readContracts.GTCStaking.address);
 
-    console.log("DASA unstakeCart", unstakeCart);
     const toUnstake = unstakeCart.map(item => {
-      console.log("DASA item", item);
       return item.votes.map(vote => {
-        console.log("DASA vote", vote.voteId);
-        return ethers.BigNumber.from(vote.voteId);
+        return ethers.BigNumber.from(vote.id);
       });
     });
-    console.log("DASA toUnstake", toUnstake);
     const flatten = toUnstake.reduce((accumulator, value) => accumulator.concat(value), []);
-    console.log("DASA flatten", flatten);
 
     tx(writeContracts.GTCStaking.releaseTokens(flatten), update => {
       console.log("📡 Transaction Update:", update);
@@ -93,7 +95,7 @@ export default function Events({ address, readContracts, writeContracts, tx }) {
           <h2>Dashboard:</h2>
           <List
             loading={loading}
-            dataSource={data.runningVoteRecords.filter(_item => _item.totalStaked != 0)}
+            dataSource={data.runningVoteRecords.filter(_item => _item /*.totalStaked != 0*/)}
             renderItem={item => <VoteItem item={item} onCheckCallback={unstakeCheckCallBack} />}
           />
           <Button

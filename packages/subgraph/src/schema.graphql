@@ -1,6 +1,5 @@
 type Vote @entity {
   id: ID!
-  voteId: BigInt!
   voter: Voter!
   amount: BigInt!
   grantId: BigInt!
@@ -11,6 +10,7 @@ type Vote @entity {
 type Release @entity {
   id: ID!
   voteId: BigInt!
+  grantId: BigInt!
   voter: Voter!
   amount: BigInt!
   createdAt: BigInt!
@@ -31,6 +31,7 @@ type RunningVoteRecord @entity {
   id: ID!
   voter: Voter!
   votes: [Vote!]!
+  releases: [Release!]!
   grantId: BigInt!
   voteCount: BigInt!
   totalStaked: BigInt!
