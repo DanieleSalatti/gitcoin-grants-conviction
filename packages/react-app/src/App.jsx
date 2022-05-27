@@ -157,11 +157,6 @@ function App(props) {
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
   const writeContracts = useContractLoader(userSigner, contractConfig, localChainId);
 
-  // If you want to call a function on a new block
-  useOnBlock(mainnetProvider, () => {
-    console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
-  });
-
   const tokenBalance = useContractReader(readContracts, "GTC", "balanceOf", [address]);
 
   const currentTimestamp = useContractReader(readContracts, "GTCStaking", "currentTimestamp");

@@ -10,9 +10,13 @@ import fetch from "isomorphic-fetch";
 import { UnlockOutlined } from "@ant-design/icons";
 import VoteItem from "../components/VoteItem";
 
+import { useOnRepetition } from "eth-hooks";
+
 const { ethers } = require("ethers");
 
-export default function Events({ address, readContracts, writeContracts, tx }) {
+export default function Dashboard({ address, readContracts, writeContracts, tx, mainnetProvider }) {
+  const [block, setBlock] = useState(0);
+
   const query = `query getRunningRecordsByVoterId {
   runningVoteRecords(where: {voter: "${
     address ? address.toLowerCase() : "0x0000000000000000000000000000000000000000"
@@ -49,6 +53,17 @@ export default function Events({ address, readContracts, writeContracts, tx }) {
       console.log("Subgraph received:", data);
     }
   }, [data, loading]);
+
+  useOnRepetition(
+    () => {
+      console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
+      setBlock(mainnetProvider._lastBlockNumber);
+    },
+    {
+      provider: mainnetProvider,
+      leadingTrigger: true,
+    },
+  );
 
   const [unstakeCart, setUnstakeCart] = useState([]);
 
@@ -96,7 +111,7 @@ export default function Events({ address, readContracts, writeContracts, tx }) {
           <List
             loading={loading}
             dataSource={data.runningVoteRecords.filter(_item => _item /*.totalStaked != 0*/)}
-            renderItem={item => <VoteItem item={item} onCheckCallback={unstakeCheckCallBack} />}
+            renderItem={item => <VoteItem item={item} onCheckCallback={unstakeCheckCallBack} block={block} />}
           />
           <Button
             onClick={() => {

@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { BUIDL_GUIDL_API_ENDPOINT } from "../constants";
 
-export default function VoteItem({ item, onCheckCallback }) {
+export default function VoteItem({ item, onCheckCallback, block }) {
   const [loading, setLoading] = useState(true);
   const [grantDetails, setGrantDetails] = useState({});
   const [checked, setChecked] = useState(false);
@@ -44,38 +44,38 @@ export default function VoteItem({ item, onCheckCallback }) {
 
     let totalVotingPower = 0;
 
-    const alpha = 0.98;
     const alphaDecay = 0.8;
 
     votes.forEach(vote => {
       const release = releasesByVoteId.get(Number(vote.id));
 
-      let daysSinceVote = (Date.now() / 1000 - new Date(parseInt(vote.createdAt))) / 60 / 60 / 24;
-      let daysSinceRelease = 0;
+      let secondsSinceVote = Date.now() / 1000 - parseInt(vote.createdAt);
+      let secondsSinceRelease = 0;
 
       if (release) {
-        daysSinceRelease = (Date.now() / 1000 - new Date(parseInt(release.createdAt))) / 60 / 60 / 24;
-        daysSinceVote = daysSinceVote - daysSinceRelease;
+        secondsSinceRelease = Date.now() / 1000 - parseInt(release.createdAt);
+        secondsSinceVote = secondsSinceVote - secondsSinceRelease;
       }
 
       let votingPower = 0;
+      let exponentialVotingPower = 0;
 
-      for (let i = 0; i < daysSinceVote; i++) {
-        votingPower = Number(ethers.utils.formatEther(vote.amount)) + alpha * votingPower;
+      const secondsInSixMonths = 60 * 60 * 24 * 30 * 6;
+      secondsSinceVote = secondsSinceVote > secondsInSixMonths ? secondsInSixMonths : secondsSinceVote;
+
+      const beta = Math.pow(50, 1 / secondsInSixMonths) - 1;
+
+      exponentialVotingPower = Number(ethers.utils.formatEther(vote.amount)) * Math.pow(1 + beta, secondsSinceVote);
+
+      votingPower = exponentialVotingPower;
+
+      for (let i = 0; i < secondsSinceRelease; i++) {
+        votingPower = votingPower - ((1 - alphaDecay) / (24 * 60 * 60)) * votingPower;
       }
-
-      console.log("🗳 amount:", Number(ethers.utils.formatEther(vote.amount)));
-      console.log(`🗳 votingPower after ${daysSinceVote} DSV:`, votingPower);
-
-      for (let i = 0; i < daysSinceRelease; i++) {
-        votingPower = alphaDecay * votingPower;
-      }
-
-      console.log(`🗳 votingPower after ${daysSinceVote} DSV and ${daysSinceRelease} DSR:`, votingPower);
 
       totalVotingPower = totalVotingPower + votingPower;
     });
-    console.log("🗳 totalVotingPower:", totalVotingPower);
+
     setVotingPower(totalVotingPower);
   };
 
@@ -83,6 +83,12 @@ export default function VoteItem({ item, onCheckCallback }) {
     void fetchGrantDetails(item);
     void calculateVotingPower(item);
   }, [item]);
+
+  useEffect(() => {
+    if (block) {
+      void calculateVotingPower(item);
+    }
+  }, [block]);
 
   return (
     <List.Item>
@@ -93,7 +99,7 @@ export default function VoteItem({ item, onCheckCallback }) {
             <div style={{ float: "right", marginLeft: "16px" }}>
               Amount: {ethers.utils.formatEther(item.totalStaked)} GTC
             </div>
-            <div style={{ float: "right", marginLeft: "16px" }}>VP: {votingPower.toFixed(4)}</div>
+            <div style={{ float: "right", marginLeft: "16px" }}>VP: {votingPower /*.toFixed(4)*/}</div>
 
             <Checkbox
               onChange={onChange}
