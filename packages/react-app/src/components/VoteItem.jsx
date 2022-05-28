@@ -2,10 +2,20 @@ import { List, Skeleton, Avatar, Checkbox } from "antd";
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
-
+import { UpCircleTwoTone, DownCircleTwoTone, QuestionCircleTwoTone } from "@ant-design/icons";
 import { BUIDL_GUIDL_API_ENDPOINT } from "../constants";
 
+const greenToneColor = "#52c41a";
+const redToneColor = "#eb2f96";
+
+const Direction = {
+  Up: "Up",
+  Down: "Down",
+  Unknown: "Unknown",
+};
+
 export default function VoteItem({ item, onCheckCallback, block }) {
+  const [direction, setDirection] = useState(Direction.Unknown);
   const [loading, setLoading] = useState(true);
   const [grantDetails, setGrantDetails] = useState({});
   const [checked, setChecked] = useState(false);
@@ -73,6 +83,11 @@ export default function VoteItem({ item, onCheckCallback, block }) {
         votingPower = votingPower - ((1 - alphaDecay) / (24 * 60 * 60)) * votingPower;
       }
 
+      if (release) {
+        setDirection(Direction.Down);
+      } else {
+        setDirection(Direction.Up);
+      }
       totalVotingPower = totalVotingPower + votingPower;
     });
 
@@ -99,7 +114,16 @@ export default function VoteItem({ item, onCheckCallback, block }) {
             <div style={{ float: "right", marginLeft: "16px" }}>
               Amount: {ethers.utils.formatEther(item.totalStaked)} GTC
             </div>
-            <div style={{ float: "right", marginLeft: "16px" }}>VP: {votingPower /*.toFixed(4)*/}</div>
+            <div style={{ float: "right", marginLeft: "16px" }}>
+              VP: {votingPower /*.toFixed(4)*/}{" "}
+              {direction === Direction.Unknown ? (
+                <QuestionCircleTwoTone />
+              ) : direction === Direction.Up ? (
+                <UpCircleTwoTone twoToneColor={greenToneColor} />
+              ) : (
+                <DownCircleTwoTone twoToneColor={redToneColor} />
+              )}
+            </div>
 
             <Checkbox
               onChange={onChange}

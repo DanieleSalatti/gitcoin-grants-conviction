@@ -14,6 +14,8 @@ import { useOnRepetition } from "eth-hooks";
 
 const { ethers } = require("ethers");
 
+const toneColor = "#52c41a";
+
 export default function Dashboard({ address, readContracts, writeContracts, tx, mainnetProvider }) {
   const [block, setBlock] = useState(0);
 
@@ -56,6 +58,7 @@ export default function Dashboard({ address, readContracts, writeContracts, tx, 
 
   useOnRepetition(
     () => {
+      if (!mainnetProvider) return;
       console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
       setBlock(mainnetProvider._lastBlockNumber);
     },
@@ -107,7 +110,12 @@ export default function Dashboard({ address, readContracts, writeContracts, tx, 
     <div style={{ width: 800, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
       {data && data.runningVoteRecords.filter(_item => _item.totalStaked != 0).length > 0 && (
         <>
-          <h2>Dashboard:</h2>
+          <h2>Dashboard</h2>
+          <p>
+            Stake/unstake operations will be reflected here with a delay. Please allow a few seconds for the Subgraph so
+            sync.
+          </p>
+          <p>Voting power is recalculated for every new block.</p>
           <List
             loading={loading}
             dataSource={data.runningVoteRecords.filter(_item => _item /*.totalStaked != 0*/)}
