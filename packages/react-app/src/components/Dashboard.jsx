@@ -1,20 +1,13 @@
 import { List, Button } from "antd";
 import { useEffect, useState } from "react";
-import { useEventListener } from "eth-hooks/events/useEventListener";
-import Address from "./Address";
-import { CONVICTION_MULTIPLIER, GTC_STAKING_DEPLOYMENT_BLOCK } from "../constants";
 import { gql, useQuery } from "@apollo/client";
-import GraphiQL from "graphiql";
 import "graphiql/graphiql.min.css";
-import fetch from "isomorphic-fetch";
 import { UnlockOutlined } from "@ant-design/icons";
 import VoteItem from "../components/VoteItem";
 
 import { useOnRepetition } from "eth-hooks";
 
 const { ethers } = require("ethers");
-
-const toneColor = "#52c41a";
 
 export default function Dashboard({ address, readContracts, writeContracts, tx, mainnetProvider }) {
   const [block, setBlock] = useState(0);

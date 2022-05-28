@@ -5,7 +5,7 @@
       "chainId": "1",
       "contracts": {
         "GTCStaking": {
-          "address": "0x9C2A7aC762ea6E33cfc380A5C802919b496c9e44",
+          "address": "0x195acfcF9f06e43410a3ad177665F358E659cDA6",
           "abi": [
             {
               "inputs": [
@@ -15,7 +15,7 @@
                   "type": "address"
                 }
               ],
-              "stateMutability": "payable",
+              "stateMutability": "nonpayable",
               "type": "constructor"
             },
             {
@@ -38,7 +38,7 @@
                   "type": "uint56"
                 },
                 {
-                  "indexed": false,
+                  "indexed": true,
                   "internalType": "address",
                   "name": "voter",
                   "type": "address"
@@ -48,6 +48,12 @@
                   "internalType": "uint152",
                   "name": "amount",
                   "type": "uint152"
+                },
+                {
+                  "indexed": false,
+                  "internalType": "uint48",
+                  "name": "grantId",
+                  "type": "uint48"
                 }
               ],
               "name": "TokensReleased",
@@ -63,7 +69,7 @@
                   "type": "uint56"
                 },
                 {
-                  "indexed": false,
+                  "indexed": true,
                   "internalType": "address",
                   "name": "voter",
                   "type": "address"

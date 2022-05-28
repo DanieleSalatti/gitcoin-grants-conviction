@@ -7,20 +7,19 @@
 yarn run v1.22.15
 $ yarn workspace @scaffold-eth/hardhat deploy --network mainnet
 $ hardhat deploy --export-all ../react-app/src/contracts/hardhat_contracts.json --network mainnet
-Compiling 6 files with 0.8.4
-Compilation finished successfully
+Nothing to compile
 chainId: 1
-deploying "GTCStaking" (tx: 0xa2859bb0ba9953b6c9c3481b2277d3280d620eb1d8bb9cd10471f8890d07c8a0)...: deployed at 0x9C2A7aC762ea6E33cfc380A5C802919b496c9e44 with 909296 gas
+deploying "GTCStaking" (tx: 0x6e216e10215a4d505ab622e2cc81df9e3a45c8d77f22368f4e73ded745c13538)...: deployed at 0x195acfcF9f06e43410a3ad177665F358E659cDA6 with 880762 gas
 $ hardhat run scripts/publish.js
 ✅  Published contracts to the subgraph package.
-✨  Done in 38.43s.
+✨  Done in 18.08s.
 ```
 
-Verified at: [https://etherscan.io/address/0x9C2A7aC762ea6E33cfc380A5C802919b496c9e44#code](https://etherscan.io/address/0x9C2A7aC762ea6E33cfc380A5C802919b496c9e44#code)
+Verified [here on Etherscan](https://etherscan.io/address/0x195acfcF9f06e43410a3ad177665F358E659cDA6#code)
 
 Mainnet subgraph: https://thegraph.com/studio/subgraph/gtc-conviction-voting-mainnet/
 
-Temporary query URL: https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.1
+Temporary query URL: https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.2
 
 The permanent query URL is: https://gateway.thegraph.com/api/[api-key]/subgraphs/id/27N5qfvJ7eRS3aD2yWs9ey8FEffd3Ssow8aUM3Q3wdbF
 

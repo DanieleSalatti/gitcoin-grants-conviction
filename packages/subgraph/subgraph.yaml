@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: GTCStaking
-    network: rinkeby
+    network: mainnet
     source:
       abi: GTCStaking
-      address: "0x51250297F56779a86B15046bEf38f75Fa05266ba"
-      startBlock: 10745169
+      address: "0x195acfcF9f06e43410a3ad177665F358E659cDA6"
+      startBlock: 14863072
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
