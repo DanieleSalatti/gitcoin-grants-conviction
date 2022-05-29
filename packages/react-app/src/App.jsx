@@ -65,7 +65,7 @@ const USE_BURNER_WALLET = false; // toggle burner wallet feature
 const USE_NETWORK_SELECTOR = false;
 const HIDE_NETWORK = true;
 
-const initialNetwork = process.env.NODE_ENV !== "production" ? NETWORKS.rinkeby : NETWORKS.mainnet; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const initialNetwork = process.env.NETWORK !== "mainnet" ? NETWORKS.rinkeby : NETWORKS.mainnet; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 const web3Modal = Web3ModalSetup();
 
