@@ -26,7 +26,7 @@ import {
   FaucetHint,
   NetworkSwitch,
 } from "./components";
-import { NETWORKS, ALCHEMY_MAINNET_KEY } from "./constants";
+import { NETWORKS, ALCHEMY_MAINNET_KEY, INITIAL_NETWORK } from "./constants";
 import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
@@ -65,7 +65,7 @@ const USE_BURNER_WALLET = false; // toggle burner wallet feature
 const USE_NETWORK_SELECTOR = false;
 const HIDE_NETWORK = true;
 
-const initialNetwork = process.env.NETWORK !== "mainnet" ? NETWORKS.rinkeby : NETWORKS.mainnet;
+const initialNetwork = INITIAL_NETWORK !== "mainnet" ? NETWORKS.rinkeby : NETWORKS.mainnet; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 const web3Modal = Web3ModalSetup();
 
@@ -80,7 +80,7 @@ function App(props) {
   const history = useHistory();
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
   // reference './constants.js' for other networks
-  const networkOptions = [initialNetwork.name];
+  const networkOptions = [initialNetwork.name, "mainnet", "localhost"];
 
   const [cart, setCart] = useLocalStorage("cart", []);
 
