@@ -62,7 +62,7 @@ const { ethers } = require("ethers");
 const DEBUG = true;
 const NETWORKCHECK = true;
 const USE_BURNER_WALLET = false; // toggle burner wallet feature
-const USE_NETWORK_SELECTOR = false;
+const USE_NETWORK_SELECTOR = true;
 const HIDE_NETWORK = true;
 
 const initialNetwork = INITIAL_NETWORK !== "mainnet" ? NETWORKS.rinkeby : NETWORKS.mainnet; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
@@ -71,16 +71,19 @@ const web3Modal = Web3ModalSetup();
 
 // 🛰 providers
 const providers = [
+  "https://rpc.v37.io/mainnet",
+  /*
   "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
   `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_MAINNET_KEY}`,
   "https://rpc.scaffoldeth.io:48544",
+  */
 ];
 
 function App(props) {
   const history = useHistory();
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
   // reference './constants.js' for other networks
-  const networkOptions = [initialNetwork.name, "mainnet", "localhost"];
+  const networkOptions = [initialNetwork.name, "optimism"];
 
   const [cart, setCart] = useLocalStorage("cart", []);
 
