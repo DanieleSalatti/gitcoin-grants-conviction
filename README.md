@@ -38,6 +38,11 @@ $ hardhat run scripts/publish.js
 ✨  Done in 7.19s.
 ```
 
+Verified [here on Etherscan](https://optimistic.etherscan.io/address/0xbBb02E07bd83947e920D746b25a067B9424537b7#code)
+
+The graph endpoint:
+https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-optimism
+
 ## Rinkeby
 
 ```bash

@@ -49,6 +49,8 @@
     "graph-deploy-local": "yarn workspace @scaffold-eth/subgraph graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 DanieleSalatti/gtc-conviction-subgraph-eth",
     "graph-build-rinkeby": "yarn graph-codegen && yarn graph-build --network rinkeby",
     "graph-deploy-rinkeby": "yarn workspace @scaffold-eth/subgraph graph deploy --product hosted-service danielesalatti/gtc-conviction-voting-rinkeby",
+    "graph-build-optimism": "yarn graph-codegen && yarn graph-build --network optimism",
+    "graph-deploy-optimism": "yarn workspace @scaffold-eth/subgraph graph deploy --product hosted-service danielesalatti/gtc-conviction-voting-optimism",
     "graph-build-mainnet": "yarn graph-codegen && yarn graph-build --network mainnet",
     "graph-deploy-mainnet": "yarn workspace @scaffold-eth/subgraph graph deploy --studio gtc-conviction-voting-mainnet",
     "graph-ship-local": "yarn graph-codegen && yarn graph-build --network rinkeby && yarn graph-deploy-local",

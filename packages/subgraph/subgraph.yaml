@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: GTCStaking
-    network: mainnet
+    network: optimism
     source:
       abi: GTCStaking
-      address: "0x195acfcF9f06e43410a3ad177665F358E659cDA6"
-      startBlock: 14863072
+      address: "0xbBb02E07bd83947e920D746b25a067B9424537b7"
+      startBlock: 9286111
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
