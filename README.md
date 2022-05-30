@@ -23,6 +23,21 @@ Temporary query URL: https://api.studio.thegraph.com/query/20308/gtc-conviction-
 
 The permanent query URL is: https://gateway.thegraph.com/api/[api-key]/subgraphs/id/27N5qfvJ7eRS3aD2yWs9ey8FEffd3Ssow8aUM3Q3wdbF
 
+## Optimism
+
+```bash
+% yarn deploy --network optimism
+yarn run v1.22.15
+$ yarn workspace @scaffold-eth/hardhat deploy --network optimism
+$ hardhat deploy --export-all ../react-app/src/contracts/hardhat_contracts.json --network optimism
+Nothing to compile
+chainId: 10
+deploying "GTCStaking" (tx: 0xd4156fec20b7314c93e83b6e39a06db28635e4040f4d06dc1ffefa364c123db3)...: deployed at 0xbBb02E07bd83947e920D746b25a067B9424537b7 with 880762 gas
+$ hardhat run scripts/publish.js
+✅  Published contracts to the subgraph package.
+✨  Done in 7.19s.
+```
+
 ## Rinkeby
 
 ```bash

@@ -293,6 +293,7 @@ module.exports = {
     apiKey: {
       mainnet: "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW",
       rinkeby: "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW",
+      optimisticEthereum: "YIXRPSABD9PEGMNBUXP2ICTXKZNFT2EVAZ",
       // add other network's API key here
     },
   },
