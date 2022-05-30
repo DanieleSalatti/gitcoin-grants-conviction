@@ -55,6 +55,7 @@ export default function VoteItem({ item, onCheckCallback, block }) {
     let totalVotingPower = 0;
 
     const alphaDecay = 0.8;
+    const maxMultiplier = 50;
 
     votes.forEach(vote => {
       const release = releasesByVoteId.get(Number(vote.id));
@@ -68,16 +69,13 @@ export default function VoteItem({ item, onCheckCallback, block }) {
       }
 
       let votingPower = 0;
-      let exponentialVotingPower = 0;
 
       const secondsInSixMonths = 60 * 60 * 24 * 30 * 6;
-      secondsSinceVote = secondsSinceVote > secondsInSixMonths ? secondsInSixMonths : secondsSinceVote;
+      secondsSinceVote = Math.min(secondsSinceVote, secondsInSixMonths);
 
-      const beta = Math.pow(50, 1 / secondsInSixMonths) - 1;
+      const beta = Math.pow(maxMultiplier, 1 / secondsInSixMonths) - 1;
 
-      exponentialVotingPower = Number(ethers.utils.formatEther(vote.amount)) * Math.pow(1 + beta, secondsSinceVote);
-
-      votingPower = exponentialVotingPower;
+      votingPower = Number(ethers.utils.formatEther(vote.amount)) * Math.pow(1 + beta, secondsSinceVote);
 
       for (let i = 0; i < secondsSinceRelease; i++) {
         votingPower = votingPower - ((1 - alphaDecay) / (24 * 60 * 60)) * votingPower;
