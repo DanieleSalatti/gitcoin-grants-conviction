@@ -1,3 +1,4 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { List, Button } from "antd";
 import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
@@ -7,9 +8,23 @@ import VoteItem from "../components/VoteItem";
 
 import { useOnRepetition } from "eth-hooks";
 
+import { GRAPH_URI_RINKEBY, GRAPH_URI_MAINNET, INITIAL_NETWORK, GRAPH_URI_OPTIMISM } from "../constants";
+
+const GRAPH_URI = INITIAL_NETWORK !== "mainnet" ? GRAPH_URI_RINKEBY : GRAPH_URI_MAINNET;
+
+const clientMainnet = new ApolloClient({
+  uri: GRAPH_URI,
+  cache: new InMemoryCache(),
+});
+
+const clientOptimism = new ApolloClient({
+  uri: GRAPH_URI_OPTIMISM,
+  cache: new InMemoryCache(),
+});
+
 const { ethers } = require("ethers");
 
-export default function Dashboard({ address, readContracts, writeContracts, tx, mainnetProvider }) {
+export default function Dashboard({ address, readContracts, writeContracts, tx, mainnetProvider, localProvider }) {
   const [block, setBlock] = useState(0);
 
   const query = `query getRunningRecordsByVoterId {
@@ -40,7 +55,14 @@ export default function Dashboard({ address, readContracts, writeContracts, tx, 
 }`;
 
   const gGGQL = gql(query);
-  const { loading, data } = useQuery(gGGQL, { pollInterval: 2500 });
+  let client = clientMainnet;
+
+  if (localProvider?._network?.chainId) {
+    client = localProvider._network.chainId === 1 ? clientMainnet : clientOptimism;
+  }
+
+  console.log("localProvider", localProvider);
+  const { loading, data } = useQuery(gGGQL, { pollInterval: 2500, client: client });
 
   useEffect(() => {
     console.log("Subgraph loading:", loading);
@@ -48,6 +70,12 @@ export default function Dashboard({ address, readContracts, writeContracts, tx, 
       console.log("Subgraph received:", data);
     }
   }, [data, loading]);
+
+  useEffect(() => {
+    if (localProvider?._network?.chainId) {
+      client = localProvider._network.chainId === 1 ? clientMainnet : clientOptimism;
+    }
+  }, [localProvider]);
 
   useOnRepetition(
     () => {

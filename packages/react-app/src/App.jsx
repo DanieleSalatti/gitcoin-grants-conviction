@@ -83,7 +83,7 @@ function App(props) {
   const history = useHistory();
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
   // reference './constants.js' for other networks
-  const networkOptions = [initialNetwork.name]; // , "optimism"];
+  const networkOptions = [initialNetwork.name, "optimism"];
 
   const [cart, setCart] = useLocalStorage("cart", []);
 
