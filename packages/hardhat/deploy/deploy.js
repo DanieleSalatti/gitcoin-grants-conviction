@@ -27,7 +27,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   console.log("chainId:", chainId);
 
-  if (chainId !== "1" || chainId !== "10") {
+  if (chainId !== "1" && chainId !== "10") {
     console.log("Not on Ethereum Mainnet or Optimism");
     const tokenDeployment = await deploy("GTC", {
       // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
