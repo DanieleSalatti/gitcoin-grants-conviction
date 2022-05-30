@@ -17,12 +17,18 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
+  // TODO: implement better way of handling chainId and contract addresses
   let gtcAddress = "0xde30da39c46104798bb5aa3fe8b9e0e1f348163f";
+
+  gtcAddress =
+    chainId === "10"
+      ? "0x1EBA7a6a72c894026Cd654AC5CDCF83A46445B08"
+      : gtcAddress;
 
   console.log("chainId:", chainId);
 
-  if (chainId !== "1") {
-    console.log("Not on mainnet");
+  if (chainId !== "1" || chainId !== "10") {
+    console.log("Not on Ethereum Mainnet or Optimism");
     const tokenDeployment = await deploy("GTC", {
       // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
       from: deployer,
