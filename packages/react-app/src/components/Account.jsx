@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
@@ -59,6 +59,18 @@ export default function Account({
   readContracts,
 }) {
   const { currentTheme } = useThemeSwitcher();
+
+  const [showOptimismBridge, setShowOptimismBridge] = React.useState(false);
+
+  useEffect(() => {
+    if (localProvider?._network?.chainId) {
+      if (localProvider._network.chainId === 10) {
+        setShowOptimismBridge(true);
+      } else {
+        setShowOptimismBridge(false);
+      }
+    }
+  }, [localProvider]);
 
   const modalButtons = [];
   if (web3Modal) {
@@ -156,9 +168,16 @@ export default function Account({
   );
 
   return (
-    <div>
-      {display}
-      {modalButtons}
-    </div>
+    <>
+      <div>
+        {display}
+        {modalButtons}
+        {showOptimismBridge && (
+          <div style={{ textAlign: "left" }}>
+            <a href="https://app.optimism.io/bridge">Bridge Mainnet GTC top Optimism</a>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
