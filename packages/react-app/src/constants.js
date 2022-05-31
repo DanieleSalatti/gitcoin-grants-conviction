@@ -9,6 +9,7 @@ export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
 export const ALCHEMY_RINKEBY_KEY = "d71_tP71CRx9mo5a2K0ET9Ez_uoGoNBT";
 export const ALCHEMY_MAINNET_KEY = "YJ8ZAF6hKi5zqcLtOtYBTG9SVvURLE0Q";
+export const ALCHEMY_OPTIMISM_KEY = "QRQYeKETfD6SVFXqb1dcnu6rxva540ZM";
 
 export const BUIDL_GUIDL_API_ENDPOINT = "https://bgapi.v37.io";
 
@@ -128,7 +129,7 @@ export const NETWORKS = {
     color: "#f01a37",
     chainId: 10,
     blockExplorer: "https://optimistic.etherscan.io/",
-    rpcUrl: `https://mainnet.optimism.io`,
+    rpcUrl: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_OPTIMISM_KEY}`,
   },
   localAvalanche: {
     name: "localAvalanche",
