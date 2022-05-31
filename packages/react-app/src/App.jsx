@@ -240,6 +240,7 @@ function App(props) {
             readContracts={readContracts}
             localProvider={localProvider}
             mainnetProvider={mainnetProvider}
+            localChainId={localChainId}
           />
         </Route>
         <Route exact path="/checkout">
@@ -325,6 +326,7 @@ function App(props) {
             blockExplorer={blockExplorer}
             fontSize={16}
             readContracts={readContracts}
+            localChainId={localChainId}
           />
         </div>
         {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (

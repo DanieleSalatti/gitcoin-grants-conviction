@@ -57,20 +57,19 @@ export default function Account({
   isContract,
   fontSize,
   readContracts,
+  localChainId,
 }) {
   const { currentTheme } = useThemeSwitcher();
 
   const [showOptimismBridge, setShowOptimismBridge] = React.useState(false);
 
   useEffect(() => {
-    if (localProvider?._network?.chainId) {
-      if (localProvider._network.chainId === 10) {
-        setShowOptimismBridge(true);
-      } else {
-        setShowOptimismBridge(false);
-      }
+    if (localChainId === 10) {
+      setShowOptimismBridge(true);
+    } else {
+      setShowOptimismBridge(false);
     }
-  }, [localProvider]);
+  }, [localChainId]);
 
   const modalButtons = [];
   if (web3Modal) {

@@ -24,7 +24,15 @@ const clientOptimism = new ApolloClient({
 
 const { ethers } = require("ethers");
 
-export default function Dashboard({ address, readContracts, writeContracts, tx, mainnetProvider, localProvider }) {
+export default function Dashboard({
+  address,
+  readContracts,
+  writeContracts,
+  tx,
+  mainnetProvider,
+  localProvider,
+  localChainId,
+}) {
   const [block, setBlock] = useState(0);
 
   const query = `query getRunningRecordsByVoterId {
@@ -57,9 +65,7 @@ export default function Dashboard({ address, readContracts, writeContracts, tx, 
   const gGGQL = gql(query);
   let client = clientMainnet;
 
-  if (localProvider?._network?.chainId) {
-    client = localProvider._network.chainId === 1 ? clientMainnet : clientOptimism;
-  }
+  client = localChainId === 1 ? clientMainnet : clientOptimism;
 
   console.log("localProvider", localProvider);
   const { loading, data } = useQuery(gGGQL, { pollInterval: 2500, client: client });
@@ -72,10 +78,8 @@ export default function Dashboard({ address, readContracts, writeContracts, tx, 
   }, [data, loading]);
 
   useEffect(() => {
-    if (localProvider?._network?.chainId) {
-      client = localProvider._network.chainId === 1 ? clientMainnet : clientOptimism;
-    }
-  }, [localProvider]);
+    client = localChainId === 1 ? clientMainnet : clientOptimism;
+  }, [localChainId]);
 
   useOnRepetition(
     () => {

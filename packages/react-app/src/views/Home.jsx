@@ -25,6 +25,7 @@ export default function Home({
   writeContracts,
   localProvider,
   mainnetProvider,
+  localChainId,
 }) {
   const [items, setItems] = useState([]);
   const [nextStart, setNextStart] = useState(0);
@@ -126,6 +127,7 @@ export default function Home({
         mainnetProvider={mainnetProvider}
         votes={votes}
         tx={tx}
+        localChainId={localChainId}
       />
       <div style={{ maxWidth: "1280px", marginLeft: "auto", marginRight: "auto" }}>
         <div
