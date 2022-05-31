@@ -113,7 +113,7 @@ export default function VoteItem({ item, onCheckCallback, block }) {
               Amount: {ethers.utils.formatEther(item.totalStaked)} GTC
             </div>
             <div style={{ float: "right", marginLeft: "16px" }}>
-              VP: {votingPower /*.toFixed(4)*/}{" "}
+              Conviction: {votingPower.toFixed(6)}{" "}
               {direction === Direction.Unknown ? (
                 <QuestionCircleTwoTone />
               ) : direction === Direction.Up ? (
