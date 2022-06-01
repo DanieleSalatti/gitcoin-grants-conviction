@@ -130,6 +130,7 @@ export const NETWORKS = {
     chainId: 10,
     blockExplorer: "https://optimistic.etherscan.io/",
     rpcUrl: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_OPTIMISM_KEY}`,
+    // rpcUrl: `https://mainnet.optimism.io`,
   },
   localAvalanche: {
     name: "localAvalanche",

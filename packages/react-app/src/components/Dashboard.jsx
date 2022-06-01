@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { List, Button } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import "graphiql/graphiql.min.css";
 import { UnlockOutlined } from "@ant-design/icons";
@@ -63,23 +63,11 @@ export default function Dashboard({
 }`;
 
   const gGGQL = gql(query);
-  let client = clientMainnet;
 
-  client = localChainId === 1 ? clientMainnet : clientOptimism;
+  const client = localChainId === 1 ? clientMainnet : clientOptimism;
 
   console.log("localProvider", localProvider);
   const { loading, data } = useQuery(gGGQL, { pollInterval: 2500, client: client });
-
-  useEffect(() => {
-    console.log("Subgraph loading:", loading);
-    if (data) {
-      console.log("Subgraph received:", data);
-    }
-  }, [data, loading]);
-
-  useEffect(() => {
-    client = localChainId === 1 ? clientMainnet : clientOptimism;
-  }, [localChainId]);
 
   useOnRepetition(
     () => {
@@ -88,6 +76,7 @@ export default function Dashboard({
       setBlock(mainnetProvider._lastBlockNumber);
     },
     {
+      polling: 10000,
       provider: mainnetProvider,
       leadingTrigger: true,
     },

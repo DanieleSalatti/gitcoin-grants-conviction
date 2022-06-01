@@ -29,12 +29,12 @@ const { utils } = require("ethers");
 **/
 
 export default function Balance(props) {
-  const balance = useBalance(props.provider, props.address);
+  const balance = useBalance(props.provider, props.address, 10000);
   let floatBalance = parseFloat("0.00");
   let gtcFloatBalance = parseFloat("0.00");
   let usingBalance = balance;
 
-  const tokenBalance = useContractReader(props.readContracts, "GTC", "balanceOf", [props.address]);
+  const tokenBalance = useContractReader(props.readContracts, "GTC", "balanceOf", [props.address], 10000);
 
   let usingTokenBalance = tokenBalance;
 

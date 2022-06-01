@@ -147,7 +147,7 @@ function App(props) {
   const tx = Transactor(userSigner, gasPrice);
 
   // 🏗 scaffold-eth is full of handy hooks like this one to get your balance:
-  const yourLocalBalance = useBalance(localProvider, address);
+  // const yourLocalBalance = useBalance(localProvider, address);
 
   // const contractConfig = useContractConfig();
 
@@ -159,29 +159,26 @@ function App(props) {
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
   const writeContracts = useContractLoader(userSigner, contractConfig, localChainId);
 
-  const tokenBalance = useContractReader(readContracts, "GTC", "balanceOf", [address]);
+  const tokenBalance = useContractReader(readContracts, "GTC", "balanceOf", [address], 10000);
 
-  const currentTimestamp = useContractReader(readContracts, "GTCStaking", "currentTimestamp");
-
-  const votes = useContractReader(readContracts, "GTCStaking", "getVotesForAddress", [address]);
+  const votes = useContractReader(readContracts, "GTCStaking", "getVotesForAddress", [address], 10000);
 
   //
   // 🧫 DEBUG 👨🏻‍🔬
   //
   useEffect(() => {
-    if (DEBUG && mainnetProvider && address && selectedChainId && yourLocalBalance && readContracts && writeContracts) {
+    if (DEBUG && mainnetProvider && address && selectedChainId && readContracts && writeContracts) {
       console.log("_____________________________________ 🏗 scaffold-eth _____________________________________");
       console.log("🌎 mainnetProvider", mainnetProvider);
       console.log("🏠 localChainId", localChainId);
       console.log("👩‍💼 selected address:", address);
       console.log("🕵🏻‍♂️ selectedChainId:", selectedChainId);
-      console.log("💵 yourLocalBalance", yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : "...");
       console.log("📝 readContracts", readContracts);
       console.log("🔐 writeContracts", writeContracts);
       console.log("💶 tokenBalance", tokenBalance);
       console.log("🗳 votes", votes);
     }
-  }, [mainnetProvider, address, selectedChainId, yourLocalBalance, readContracts, writeContracts, localChainId]);
+  }, [mainnetProvider, address, selectedChainId, readContracts, writeContracts, localChainId]);
 
   const loadWeb3Modal = useCallback(async () => {
     const provider = await web3Modal.connect();
@@ -257,24 +254,6 @@ function App(props) {
           />
         </Route>
         <Route exact path="/debug">
-          {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
-          <Events
-            address={address}
-            contracts={readContracts}
-            contractName="GTCStaking"
-            eventName="VoteCasted"
-            localProvider={localProvider}
-            mainnetProvider={mainnetProvider}
-            startBlock={1}
-            currentTimestamp={currentTimestamp}
-            tx={tx}
-            readContracts={readContracts}
-            writeContracts={writeContracts}
-          />
           <Contract
             name="GTCStaking"
             price={price}
@@ -329,9 +308,6 @@ function App(props) {
             localChainId={localChainId}
           />
         </div>
-        {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
-          <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
-        )}
       </div>
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}

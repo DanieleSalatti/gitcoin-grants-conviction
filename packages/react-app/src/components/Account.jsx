@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
@@ -61,7 +61,7 @@ export default function Account({
 }) {
   const { currentTheme } = useThemeSwitcher();
 
-  const [showOptimismBridge, setShowOptimismBridge] = React.useState(false);
+  const [showOptimismBridge, setShowOptimismBridge] = useState(localChainId === 1);
 
   useEffect(() => {
     if (localChainId === 10) {
