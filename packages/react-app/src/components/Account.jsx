@@ -173,7 +173,7 @@ export default function Account({
         {modalButtons}
         {showOptimismBridge && (
           <div style={{ textAlign: "left" }}>
-            <a href="https://app.optimism.io/bridge">Bridge Mainnet GTC top Optimism</a>
+            <a href="https://app.optimism.io/bridge">Bridge Mainnet GTC to Optimism</a>
           </div>
         )}
       </div>
