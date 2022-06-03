@@ -1,4 +1,4 @@
-import { List, Skeleton, Avatar, Checkbox } from "antd";
+import { List, Skeleton, Avatar, Checkbox, Row, Col } from "antd";
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
@@ -104,15 +104,24 @@ export default function VoteItem({ item, onCheckCallback, block }) {
   }, [block]);
 
   return (
-    <List.Item>
+    <List.Item style={{ width: "100%" }}>
       <Skeleton loading={loading} title={false} active>
         {item && (
-          <>
-            <List.Item.Meta avatar={<Avatar src={grantDetails.img} />} title={grantDetails.title} />
-            <div style={{ float: "right", marginLeft: "16px" }}>
-              Amount: {ethers.utils.formatEther(item.totalStaked)} GTC
-            </div>
-            <div style={{ float: "right", marginLeft: "16px" }}>
+          <Row gutter={[24, 16]} style={{ width: "100%" }}>
+            <Col flex={12}>
+              <List.Item.Meta
+                avatar={<Avatar src={grantDetails.img} />}
+                title={grantDetails.title}
+                description={
+                  <>
+                    <p style={{ whiteSpace: "nowrap", lineHeight: "1" }}>
+                      Amount Staked: {ethers.utils.formatEther(item.totalStaked)} GTC
+                    </p>
+                  </>
+                }
+              />
+            </Col>
+            <Col flex={8}>
               Conviction: {votingPower.toFixed(6)}{" "}
               {direction === Direction.Unknown ? (
                 <QuestionCircleTwoTone />
@@ -121,17 +130,13 @@ export default function VoteItem({ item, onCheckCallback, block }) {
               ) : (
                 <DownCircleTwoTone twoToneColor={redToneColor} />
               )}
-            </div>
-
-            <Checkbox
-              onChange={onChange}
-              style={{ marginLeft: "16px" }}
-              disabled={!(item.totalStaked > 0)}
-              checked={checked}
-            >
-              Unstake
-            </Checkbox>
-          </>
+            </Col>
+            <Col flex={4}>
+              <Checkbox onChange={onChange} disabled={!(item.totalStaked > 0)} checked={checked}>
+                Unstake
+              </Checkbox>
+            </Col>
+          </Row>
         )}
       </Skeleton>
     </List.Item>

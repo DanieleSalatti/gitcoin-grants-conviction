@@ -121,7 +121,17 @@ export default function Dashboard({
   };
 
   return (
-    <div style={{ width: 800, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+    <div
+      style={{
+        width: "95%",
+        maxWidth: 800,
+        margin: "auto",
+        marginTop: 32,
+        paddingBottom: 32,
+        paddingLeft: 16,
+        paddingRight: 16,
+      }}
+    >
       {data && data.runningVoteRecords.filter(_item => _item.totalStaked != 0).length > 0 && (
         <>
           <h2>Dashboard</h2>
