@@ -5,6 +5,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 import Address from "./Address";
 import Balance from "./Balance";
 import Wallet from "./Wallet";
+import { NETWORKS } from "../constants";
 
 /**
   ~ What it does? ~
@@ -58,6 +59,7 @@ export default function Account({
   fontSize,
   readContracts,
   localChainId,
+  setSelectedNetwork,
 }) {
   const { currentTheme } = useThemeSwitcher();
 
@@ -171,11 +173,57 @@ export default function Account({
       <div>
         {display}
         {modalButtons}
-        {showOptimismBridge && (
+        {showOptimismBridge ? (
           <div style={{ textAlign: "left" }}>
             <a href="https://app.optimism.io/bridge" target="_blank">
               Bridge Mainnet GTC to Optimism
             </a>
+          </div>
+        ) : (
+          <div style={{ textAlign: "left" }}>
+            <Button
+              type="text"
+              onClick={async () => {
+                setSelectedNetwork("optimism");
+                const targetNetwork = NETWORKS["optimism"];
+                const ethereum = window.ethereum;
+                const data = [
+                  {
+                    chainId: "0x" + targetNetwork.chainId.toString(16),
+                    chainName: targetNetwork.name,
+                    nativeCurrency: targetNetwork.nativeCurrency,
+                    rpcUrls: [targetNetwork.rpcUrl],
+                    blockExplorerUrls: [targetNetwork.blockExplorer],
+                  },
+                ];
+                console.log("data", data);
+
+                let switchTx;
+                // https://docs.metamask.io/guide/rpc-api.html#other-rpc-methods
+                try {
+                  switchTx = await ethereum.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: data[0].chainId }],
+                  });
+                } catch (switchError) {
+                  // not checking specific error code, because maybe we're not using MetaMask
+                  try {
+                    switchTx = await ethereum.request({
+                      method: "wallet_addEthereumChain",
+                      params: data,
+                    });
+                  } catch (addError) {
+                    // handle "add" error
+                  }
+                }
+
+                if (switchTx) {
+                  console.log(switchTx);
+                }
+              }}
+            >
+              <span style={{ textTransform: "capitalize" }}>🔴 Stake on Optimism! 🔴</span>
+            </Button>
           </div>
         )}
       </div>

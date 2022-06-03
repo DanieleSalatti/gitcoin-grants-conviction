@@ -306,6 +306,7 @@ function App(props) {
             fontSize={16}
             readContracts={readContracts}
             localChainId={localChainId}
+            setSelectedNetwork={setSelectedNetwork}
           />
         </div>
       </div>
