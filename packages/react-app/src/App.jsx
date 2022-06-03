@@ -213,16 +213,62 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
-      <NetworkDisplay
-        NETWORKCHECK={NETWORKCHECK}
-        localChainId={localChainId}
-        selectedChainId={selectedChainId}
-        targetNetwork={targetNetwork}
-        logoutOfWeb3Modal={logoutOfWeb3Modal}
-        USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
-        HIDE_NETWORK={HIDE_NETWORK}
-      />
+      <Row gutter={[24, 16]} style={{ marginLeft: "auto", marginRight: "auto" }}>
+        <Col span={6} xs={24} sm={24} md={24} lg={24} xl={12} xxl={6}>
+          <Header />
+          <NetworkDisplay
+            NETWORKCHECK={NETWORKCHECK}
+            localChainId={localChainId}
+            selectedChainId={selectedChainId}
+            targetNetwork={targetNetwork}
+            logoutOfWeb3Modal={logoutOfWeb3Modal}
+            USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
+            HIDE_NETWORK={HIDE_NETWORK}
+          />
+        </Col>
+        <Col span={6} xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+          {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+          <div style={{ textAlign: "right", right: 0, top: 0, padding: 10, alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              {USE_NETWORK_SELECTOR && (
+                <div style={{ marginRight: 20, verticalAlign: "top", marginLeft: 8, marginTop: 0 }}>
+                  <NetworkSwitch
+                    networkOptions={networkOptions}
+                    selectedNetwork={selectedNetwork}
+                    setSelectedNetwork={setSelectedNetwork}
+                  />
+                </div>
+              )}
+              <Account
+                useBurner={USE_BURNER_WALLET}
+                address={address}
+                localProvider={localProvider}
+                userSigner={userSigner}
+                mainnetProvider={mainnetProvider}
+                price={price}
+                web3Modal={web3Modal}
+                loadWeb3Modal={loadWeb3Modal}
+                logoutOfWeb3Modal={logoutOfWeb3Modal}
+                blockExplorer={blockExplorer}
+                fontSize={16}
+                readContracts={readContracts}
+                localChainId={localChainId}
+                setSelectedNetwork={setSelectedNetwork}
+              />
+            </div>
+          </div>
+        </Col>
+      </Row>
 
       <Switch>
         <Route exact path="/">
@@ -279,37 +325,6 @@ function App(props) {
       </Switch>
 
       <ThemeSwitch />
-
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
-          {USE_NETWORK_SELECTOR && (
-            <div style={{ marginRight: 20, verticalAlign: "top", marginLeft: 8, marginTop: 0 }}>
-              <NetworkSwitch
-                networkOptions={networkOptions}
-                selectedNetwork={selectedNetwork}
-                setSelectedNetwork={setSelectedNetwork}
-              />
-            </div>
-          )}
-          <Account
-            useBurner={USE_BURNER_WALLET}
-            address={address}
-            localProvider={localProvider}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            price={price}
-            web3Modal={web3Modal}
-            loadWeb3Modal={loadWeb3Modal}
-            logoutOfWeb3Modal={logoutOfWeb3Modal}
-            blockExplorer={blockExplorer}
-            fontSize={16}
-            readContracts={readContracts}
-            localChainId={localChainId}
-            setSelectedNetwork={setSelectedNetwork}
-          />
-        </div>
-      </div>
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10, display: "none" }}>
