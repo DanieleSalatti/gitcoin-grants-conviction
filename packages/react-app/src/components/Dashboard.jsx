@@ -129,7 +129,7 @@ export default function Dashboard({
             Stake/unstake operations will be reflected here with a delay. Please allow a few seconds for the Subgraph so
             sync.
           </p>
-          <p>Voting power is recalculated for every new block.</p>
+          <p>Voting power is recalculated every few seconds.</p>
           <List
             loading={loading}
             dataSource={data.runningVoteRecords.filter(_item => _item /*.totalStaked != 0*/)}
