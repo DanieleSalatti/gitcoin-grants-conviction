@@ -133,15 +133,16 @@ export default function Home({
         <div
           style={{
             padding: 16,
-            width: 700,
-            margin: "auto",
+            maxWidth: 700,
+            marginLeft: "auto",
+            marginRight: "auto",
             marginTop: 32,
             marginBottom: 32,
           }}
         >
-          <div style={{ margin: 4 }}>
+          <div style={{ marginLeft: "auto", marginRight: "auto" }}>
             <Input
-              style={{ fontSize: 24, width: 700 }}
+              style={{ fontSize: 24, maxWidth: 700, marginLeft: "auto", marginRight: "auto" }}
               placeholder="Search"
               onChange={e => {
                 setFilter(e.target.value);
@@ -156,6 +157,7 @@ export default function Home({
         <div style={{ clear: "both" }}></div>
 
         <InfiniteScroll
+          style={{ marginLeft: "auto", marginRight: "auto" }}
           loadMore={() => {
             !fetching && fetchGrants();
           }}
@@ -166,13 +168,13 @@ export default function Home({
             </div>
           }
         >
-          <Row gutter={[24, 16]}>
+          <Row gutter={[24, 16]} style={{ marginLeft: "auto", marginRight: "auto" }}>
             {items.map(grant => {
               return (
-                <Col span={6} key={grant.id}>
+                <Col span={6} key={grant.id} xs={24} sm={12} md={8} lg={8} xl={6} xxl={6}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: 240, marginLeft: "auto", marginRight: "auto" }}
                     cover={
                       <>
                         <Button
