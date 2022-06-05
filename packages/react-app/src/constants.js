@@ -21,8 +21,9 @@ export const INITIAL_NETWORK = "mainnet";
 
 export const GRAPH_URI_RINKEBY = "https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-rinkeby";
 // Temporary Mainnet query URL:
-export const GRAPH_URI_MAINNET = "https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.2";
-// export const GRAPH_URI_MAINNET = "https://gateway.thegraph.com/api/da8402014b121bb1b6f166fa4c6cee8a/subgraphs/id/27N5qfvJ7eRS3aD2yWs9ey8FEffd3Ssow8aUM3Q3wdbF";
+// export const GRAPH_URI_MAINNET = "https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.2";
+export const GRAPH_URI_MAINNET =
+  "https://gateway.thegraph.com/api/da8402014b121bb1b6f166fa4c6cee8a/subgraphs/id/27N5qfvJ7eRS3aD2yWs9ey8FEffd3Ssow8aUM3Q3wdbF";
 export const GRAPH_URI_OPTIMISM =
   "https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-optimism";
 
