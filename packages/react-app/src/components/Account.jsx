@@ -91,7 +91,14 @@ export default function Account({
       modalButtons.push(
         <Button
           key="loginbutton"
-          style={{ verticalAlign: "top", marginRight: 38, marginTop: 14, transform: "scale(1.4)" }}
+          style={{
+            verticalAlign: "top",
+            marginRight: 38,
+            marginTop: 14,
+            transform: "scale(1.4)",
+            marginLeft: 30,
+            marginBottom: 10,
+          }}
           shape="round"
           size="large"
           type={minimized ? "default" : "primary"}
@@ -222,7 +229,7 @@ export default function Account({
                 }
               }}
             >
-              <span style={{ textTransform: "capitalize" }}>🔴 Stake on Optimism! 🔴</span>
+              <span style={{ textTransform: "capitalize", color: "red" }}>Stake on Optimism</span>
             </Button>
           </div>
         )}

@@ -157,7 +157,7 @@ export default function Home({
         <div style={{ clear: "both" }}></div>
 
         <InfiniteScroll
-          style={{ marginLeft: "auto", marginRight: "auto" }}
+          style={{ marginLeft: "auto", marginRight: "auto", paddingBottom: 64 }}
           loadMore={() => {
             !fetching && fetchGrants();
           }}
