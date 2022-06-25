@@ -8,7 +8,7 @@ export const ETHERSCAN_KEY = "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
 export const BLOCKNATIVE_DAPPID = "0b58206a-f3c0-4701-a62f-73c7243e8c77";
 
 export const ALCHEMY_RINKEBY_KEY = "d71_tP71CRx9mo5a2K0ET9Ez_uoGoNBT";
-export const ALCHEMY_MAINNET_KEY = "c-8L7cSLLv95LNEyg-GvCqkjIoPcLJaL";
+export const ALCHEMY_MAINNET_KEY = "5BIWl-0wZfXssazotYGoE4IvVAkLVBzR";
 export const ALCHEMY_OPTIMISM_KEY = "QRQYeKETfD6SVFXqb1dcnu6rxva540ZM";
 
 export const BUIDL_GUIDL_API_ENDPOINT = "https://bgapi.v37.io";
