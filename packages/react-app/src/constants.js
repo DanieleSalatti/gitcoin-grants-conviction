@@ -21,9 +21,8 @@ export const INITIAL_NETWORK = "mainnet";
 
 export const GRAPH_URI_RINKEBY = "https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-rinkeby";
 // Temporary Mainnet query URL:
-// export const GRAPH_URI_MAINNET = "https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.2";
-export const GRAPH_URI_MAINNET =
-  "https://gateway.thegraph.com/api/da8402014b121bb1b6f166fa4c6cee8a/subgraphs/id/27N5qfvJ7eRS3aD2yWs9ey8FEffd3Ssow8aUM3Q3wdbF";
+export const GRAPH_URI_MAINNET = "https://api.studio.thegraph.com/query/20308/gtc-conviction-voting-mainnet/v0.0.2";
+//export const GRAPH_URI_MAINNET = "https://gateway.thegraph.com/api/da8402014b121bb1b6f166fa4c6cee8a/subgraphs/id/27N5qfvJ7eRS3aD2yWs9ey8FEffd3Ssow8aUM3Q3wdbF";
 export const GRAPH_URI_OPTIMISM =
   "https://api.thegraph.com/subgraphs/name/danielesalatti/gtc-conviction-voting-optimism";
 
@@ -39,7 +38,8 @@ export const NETWORKS = {
     name: "mainnet",
     color: "#ff8b9e",
     chainId: 1,
-    rpcUrl: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_MAINNET_KEY}`,
+    // rpcUrl: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_MAINNET_KEY}`,
+    rpcUrl: "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
     blockExplorer: "https://etherscan.io/",
   },
   kovan: {
@@ -131,8 +131,8 @@ export const NETWORKS = {
     color: "#f01a37",
     chainId: 10,
     blockExplorer: "https://optimistic.etherscan.io/",
-    rpcUrl: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_OPTIMISM_KEY}`,
-    // rpcUrl: `https://mainnet.optimism.io`,
+    // rpcUrl: `https://opt-mainnet.g.alchemy.com/v2/${ALCHEMY_OPTIMISM_KEY}`,
+    rpcUrl: `https://mainnet.optimism.io`,
   },
   localAvalanche: {
     name: "localAvalanche",
