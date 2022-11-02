@@ -1,39 +1,30 @@
 import { Button, Col, Row } from "antd";
 import "antd/dist/antd.css";
-import {
-  useBalance,
-  useContractLoader,
-  useContractReader,
-  useGasPrice,
-  useOnBlock,
-  useUserProviderAndSigner,
-} from "eth-hooks";
+import { useContractLoader, useContractReader, useGasPrice, useUserProviderAndSigner } from "eth-hooks";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 import React, { useCallback, useEffect, useState } from "react";
-import { useHistory, Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import "./App.css";
 import {
   Account,
   Contract,
-  Events,
   Faucet,
+  Footer,
   GasGauge,
   Header,
-  Footer,
+  NetworkDisplay,
+  NetworkSwitch,
   Ramp,
   ThemeSwitch,
-  NetworkDisplay,
-  FaucetHint,
-  NetworkSwitch,
 } from "./components";
-import { NETWORKS, ALCHEMY_MAINNET_KEY, INITIAL_NETWORK } from "./constants";
+import { ALCHEMY_MAINNET_KEY, INITIAL_NETWORK, NETWORKS } from "./constants";
 import externalContracts from "./contracts/external_contracts";
 // contracts
+import { RollbackOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, Confirm, Checkout, Success } from "./views";
-import { useStaticJsonRPC, useLocalStorage } from "./hooks";
-import { ShoppingCartOutlined, RollbackOutlined } from "@ant-design/icons";
+import { useLocalStorage, useStaticJsonRPC } from "./hooks";
+import { Checkout, Confirm, Home, Success } from "./views";
 
 require("dotenv").config();
 
@@ -274,9 +265,6 @@ function App(props) {
         <Route exact path="/">
           <Home
             address={address}
-            tokenBalance={tokenBalance}
-            cart={cart}
-            setCart={setCart}
             votes={votes}
             tx={tx}
             writeContracts={writeContracts}
